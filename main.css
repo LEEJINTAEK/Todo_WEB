@@ -1,7 +1,7 @@
 *{
     box-sizing: border-box;
     margin: 0;
-    font-family: 'Tilt Neon';
+    font-family: 'Single Day', cursive;
 }
 body {
     display: flex;
@@ -74,7 +74,7 @@ main {
     padding: 1rem;
 }
 .task-list h2{
-    font-size: 1.7rem;
+    font-size: 2rem;
     font-weight: bold;
     color: lightcoral;
     margin-bottom: 1rem;
@@ -85,14 +85,15 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
     background-color: lightgoldenrodyellow;
 }
 #tasks .task{
     display: flex;
     flex-direction: row;
     margin-bottom: 1rem;
+    width: 90%;
 }
 
 #tasks .task .content{
@@ -100,12 +101,18 @@ main {
     margin-right: 1rem;
     border-bottom: solid gray 1px;
 }
-#tasks .task .content input{
-    font-size: 1rem;
+#tasks .task .content .text{
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 #tasks .task .btn .edit{
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: lightblue;
 }
 #tasks .task .btn .delete{
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: lightsalmon;
 }
