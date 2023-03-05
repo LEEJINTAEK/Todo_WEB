@@ -3,6 +3,10 @@
     margin: 0;
     font-family: 'Single Day', cursive;
 }
+a{
+    text-decoration: none;
+    color:black;
+}
 body {
     display: flex;
     flex-direction: column;
