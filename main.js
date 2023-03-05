@@ -3,15 +3,38 @@ window.addEventListener("load", () => {
   const input = document.querySelector("#new-text");
   const lists = document.querySelector("#tasks");
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const task = input.value;
+  let todoList = [];
 
-    if (!task) {
-      alert("할 일을 적어주세요~");
-      return;
+  const jsonLocalStorage = {
+    setItem: (key, value) => {
+      localStorage.setItem(key, JSON.stringify(value));
+    },
+    getItem: (key) => {
+      return JSON.parse(localStorage.getItem(key));
+    },
+  };
+
+  function saveTodo(todo) {
+    const toObject = {
+      text: todo,
+      id: todoList.length + 1,
+    };
+    todoList.push(toObject);
+    jsonLocalStorage.setItem("todolist", todoList);
+  }
+
+  function loadToDoList() {
+    const loadedToDoList = jsonLocalStorage.getItem("todolist");
+    if (loadedToDoList !== null) {
+      for (let toDo of loadedToDoList) {
+        const { text } = toDo; //const text = toDo.text
+        paint(text);
+        saveTodo(text);
+      }
     }
+  }
 
+  function paint(text) {
     //html 주석 처리부분
     const task_el = document.createElement("div");
     task_el.classList.add("task");
@@ -25,7 +48,7 @@ window.addEventListener("load", () => {
     const task_input_el = document.createElement("input");
     task_input_el.classList.add("text");
     task_input_el.type = "text";
-    task_input_el.value = task;
+    task_input_el.value = text;
     task_input_el.setAttribute("readonly", "readonly");
 
     task_content_el.appendChild(task_input_el);
@@ -45,8 +68,6 @@ window.addEventListener("load", () => {
     btn_el.appendChild(btn_edit);
     btn_el.appendChild(btn_delete);
 
-    input.value = "";
-
     //edit
     btn_edit.addEventListener("click", () => {
       if (btn_edit.innerText === "Edit") {
@@ -63,5 +84,23 @@ window.addEventListener("load", () => {
     btn_delete.addEventListener("click", () => {
       lists.removeChild(task_el);
     });
-  });
+  }
+
+  function createToDo(e) {
+    e.preventDefault();
+    const task = input.value;
+    paint(task);
+    saveTodo(task);
+    if (!task) {
+      alert("할 일을 적어주세요~");
+      return;
+    }
+    input.value = "";
+  }
+
+  function init() {
+    loadToDoList();
+    form.addEventListener("submit", createToDo);
+  }
+  init();
 });
