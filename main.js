@@ -69,12 +69,21 @@ window.addEventListener("load", () => {
     btn_el.appendChild(btn_delete);
 
     //edit
-    btn_edit.addEventListener("click", () => {
+    btn_edit.addEventListener("click", (e) => {
       if (btn_edit.innerText === "Edit") {
         task_input_el.removeAttribute("readonly");
         task_input_el.focus();
         btn_edit.innerText = "Save";
       } else {
+        let msg = task_input_el.value;
+        const liEdit = e.target.parentNode.parentNode;
+        todoList.forEach((x) => {
+          if (x.id === Number(liEdit.id)) {
+            x.text = msg;
+          }
+        });
+        jsonLocalStorage.setItem("todolist", todoList);
+
         task_input_el.setAttribute("readonly", "readonly");
         btn_edit.innerText = "Edit";
       }
@@ -84,8 +93,8 @@ window.addEventListener("load", () => {
     //delete
     btn_delete.addEventListener("click", (e) => {
       lists.removeChild(task_el);
-      const li = e.target.parentNode.parentNode;
-      todoList = todoList.filter((toDo) => toDo.id !== Number(li.id)); // 변경
+      const liDel = e.target.parentNode.parentNode;
+      todoList = todoList.filter((toDo) => toDo.id !== Number(liDel.id)); // 변경
       jsonLocalStorage.setItem("todolist", todoList);
     });
   }
