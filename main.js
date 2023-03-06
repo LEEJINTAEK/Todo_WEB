@@ -80,9 +80,13 @@ window.addEventListener("load", () => {
       }
     });
 
+    task_el.id = todoList.length + 1;
     //delete
-    btn_delete.addEventListener("click", () => {
+    btn_delete.addEventListener("click", (e) => {
       lists.removeChild(task_el);
+      const li = e.target.parentNode.parentNode;
+      todoList = todoList.filter((toDo) => toDo.id !== Number(li.id)); // 변경
+      jsonLocalStorage.setItem("todolist", todoList);
     });
   }
 
